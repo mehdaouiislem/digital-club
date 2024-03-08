@@ -163,25 +163,57 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<section>
-							<form method="post" action="#">
-								<div class="fields">
-									<div class="field">
-										<label for="name">Name</label>
-										<input type="text" name="name" id="name" />
-									</div>
-									<div class="field">
-										<label for="email">Email</label>
-										<input type="text" name="email" id="email" />
-									</div>
-									<div class="field">
-										<label for="message">Message</label>
-										<textarea name="message" id="message" rows="3"></textarea>
-									</div>
-								</div>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
-							</form>
+							<form name="contact" method="POST" data-netlify="true">
+    <div class="fields">
+        <div class="field">
+            <label for="islem">islem</label>
+            <input type="text" name="islem" id="islem">
+        </div>
+        <div class="field">
+            <label for="to_name">to_name</label>
+            <input type="text" name="to_name" id="to_name">
+        </div>
+        <div class="field">
+            <label for="from_name">from_name</label>
+            <input type="text" name="from_name" id="from_name">
+        </div>
+        <div class="field">
+            <label for="message">message</label>
+            <input type="text" name="message" id="message">
+        </div>
+        <div class="field">
+            <label for="reply_to">reply_to</label>
+            <input type="text" name="reply_to" id="reply_to">
+        </div>
+        <input type="submit" id="button" value="Send Email">
+    </div>
+</form>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+    emailjs.init('n_cnVE7Zd9HCKD7jH')
+    const btn = document.getElementById('button');
+
+    document.querySelector('form[name="contact"]')
+        .addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            btn.value = 'Sending...';
+
+            const serviceID = 'service_calwvqe';
+            const templateID = 'template_ngudbsc';
+
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    btn.value = 'Send Email';
+                    alert('Sent!');
+                }, (err) => {
+                    btn.value = 'Send Email';
+                    alert(JSON.stringify(err));
+                });
+        });
+</script>
+
 						</section>
 						<section class="split contact">
 							<section class="alt">
